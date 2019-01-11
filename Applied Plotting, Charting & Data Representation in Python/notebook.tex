@@ -1,0 +1,844 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Assignment4}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Assignment 4}\label{assignment-4}
+
+Before working on this assignment please read these instructions fully.
+In the submission area, you will notice that you can click the link to
+\textbf{Preview the Grading} for each step of the assignment. This is
+the criteria that will be used for peer grading. Please familiarize
+yourself with the criteria before beginning the assignment.
+
+This assignment requires that you to find \textbf{at least} two datasets
+on the web which are related, and that you visualize these datasets to
+answer a question with the broad topic of \textbf{religious events or
+traditions} (see below) for the region of \textbf{Ann Arbor, Michigan,
+United States}, or \textbf{United States} more broadly.
+
+You can merge these datasets with data from different regions if you
+like! For instance, you might want to compare \textbf{Ann Arbor,
+Michigan, United States} to Ann Arbor, USA. In that case at least one
+source file must be about \textbf{Ann Arbor, Michigan, United States}.
+
+You are welcome to choose datasets at your discretion, but keep in mind
+\textbf{they will be shared with your peers}, so choose appropriate
+datasets. Sensitive, confidential, illicit, and proprietary materials
+are not good choices for datasets for this assignment. You are welcome
+to upload datasets of your own as well, and link to them using a third
+party repository such as github, bitbucket, pastebin, etc. Please be
+aware of the Coursera terms of service with respect to intellectual
+property.
+
+Also, you are welcome to preserve data in its original language, but for
+the purposes of grading you should provide english translations. You are
+welcome to provide multiple visuals in different languages if you would
+like!
+
+As this assignment is for the whole course, you must incorporate
+principles discussed in the first week, such as having as high data-ink
+ratio (Tufte) and aligning with Cairo's principles of truth, beauty,
+function, and insight.
+
+Here are the assignment instructions:
+
+\begin{itemize}
+\tightlist
+\item
+  State the region and the domain category that your data sets are about
+  (e.g., \textbf{Ann Arbor, Michigan, United States} and
+  \textbf{religious events or traditions}).
+\item
+  You must state a question about the domain category and region that
+  you identified as being interesting.
+\item
+  You must provide at least two links to available datasets. These could
+  be links to files such as CSV or Excel files, or links to websites
+  which might have data in tabular form, such as Wikipedia pages.
+\item
+  You must upload an image which addresses the research question you
+  stated. In addition to addressing the question, this visual should
+  follow Cairo's principles of truthfulness, functionality, beauty, and
+  insightfulness.
+\item
+  You must contribute a short (1-2 paragraph) written justification of
+  how your visualization addresses your stated research question.
+\end{itemize}
+
+What do we mean by \textbf{religious events or traditions}? For this
+category you might consider calendar events, demographic data about
+religion in the region and neighboring regions, participation in
+religious events, or how religious events relate to political events,
+social movements, or historical events.
+
+\subsection{Tips}\label{tips}
+
+\begin{itemize}
+\tightlist
+\item
+  Wikipedia is an excellent source of data, and I strongly encourage you
+  to explore it for new data sources.
+\item
+  Many governments run open data initiatives at the city, region, and
+  country levels, and these are wonderful resources for localized data
+  sources.
+\item
+  Several international agencies, such as the
+  \href{http://data.un.org/}{United Nations}, the
+  \href{http://data.worldbank.org/}{World Bank}, the
+  \href{http://index.okfn.org/place/}{Global Open Data Index} are other
+  great places to look for data.
+\item
+  This assignment requires you to convert and clean datafiles. Check out
+  the discussion forums for tips on how to do this from various sources,
+  and share your successes with your fellow students!
+\end{itemize}
+
+\subsection{Example}\label{example}
+
+Looking for an example? Here's what our course assistant put together
+for the \textbf{Ann Arbor, MI, USA} area using \textbf{sports and
+athletics} as the topic.
+\href{./readonly/Assignment4_example.pdf}{Example Solution File}
+
+    \section{Finding out relations between different Religious bodies
+functioning in Ann Arbor, MI their Adherence, Traditonal and Family
+distributions among the population for 2010
+Census}\label{finding-out-relations-between-different-religious-bodies-functioning-in-ann-arbor-mi-their-adherence-traditonal-and-family-distributions-among-the-population-for-2010-census}
+
+Region - \textbf{Ann Arbor, Michigan, United States}.
+
+Topic - \textbf{Various Religions and Traditions followed by the local
+population}
+
+\textbf{The dataset I have ensembled is by web scrapping from the below
+listed resources :-} *
+\href{http://www.thearda.com/rcms2010/r/m/11460/rcms2010_11460_metro_name_2010.asp}{Metro-Area
+Membership Report By ARDA} (Provides Data in Tabular form) *
+\href{http://www.asarb.org/}{Association of Statisticians of American
+Religious Bodies} * \href{http://www.usreligioncensus.org/}{U.S.
+Religion Census 1952 to 2010}
+
+\textbf{So, I have used the dataset to find relations and visualisations
+for demographic data about religion in this region.}
+
+    \section{Summary}\label{summary}
+
+For this assignment, I have used three different kinds of visualisations
+that I found out through this database.
+
+\textbf{First figure - }
+
+\begin{itemize}
+\tightlist
+\item
+  I have used a \textbf{Bar Plot} to find the number of different
+  traditions followed by the people of Ann Arbor, MI.
+\end{itemize}
+
+\textbf{Second Figure - }
+
+\begin{itemize}
+\tightlist
+\item
+  I have used a \textbf{Line Plot} to find the number of different
+  Religious Families the people of Ann Arbor, MI belong to.
+\end{itemize}
+
+\textbf{Third Figure - }
+
+\begin{itemize}
+\tightlist
+\item
+  I have used a \textbf{Swarm Plot} to find the relation between
+  Adherents and Adherents Rate for the population of Ann Arbor, MI.
+\end{itemize}
+
+\textbf{Meaning of a Religious event}
+
+A religious event is a time of special importance marked by adherents to
+that religion. Religious event are commonly celebrated on recurring
+cycles in a calendar year or lunar calendar. Hundreds of very different
+religious events are held around the world each year and a religious
+festival is about celebrating something that is special to that
+religion.
+
+\textbf{Meaning of a Tradition}
+
+A tradition is a belief or behavior passed down within a group or
+society with symbolic meaning or special significance with origins in
+the past
+
+I believe the visualisations provided by me tells us about major trends
+among Religious Family and Traditions followed by the people of this
+region. Also, Adherence Rate and Adherents show the trend of curve among
+these values through which we get to know about the major religious
+mindset among the population.
+
+I have used Cairo's principles of truthfulness, functionality, beauty,
+and insightfulness in the making of all of my visualisations.So, As to
+keep the data-ink ratio high and reduce plot junk.I have used minimalism
+and light weight colours to please the users.
+
+    \section{Facts about the Data for Ann Arbor,
+MI}\label{facts-about-the-data-for-ann-arbor-mi}
+
+The population of the Ann Arbor, MI, Metropolitan Statistical Area was
+\textbf{322,895} in 2000; in 1990 it was \textbf{282,937}. The total
+population changed \textbf{14.1\%}. The adherent totals of the religious
+groups listed above (107,901) included \textbf{33.4\%} of the total
+population in 2000.
+
+Ann Arbor, MI, Metropolitan Statistical Area includes Washtenaw County,
+Michigan.
+
+\begin{itemize}
+\tightlist
+\item
+  Total number of Congregations in the data set are \textbf{206}
+\item
+  Total number of Adherents in the data set are \textbf{107,901}
+\item
+  People who did not clamied any religion or did not felt like they
+  belonged to any religion i.e \textbf{Unclaimed} in the population were
+  \textbf{231,595}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}147}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} notebook
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{patches} \PY{k}{as} \PY{n+nn}{mpatches}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{animation} \PY{k}{as} \PY{n+nn}{animation}
+          \PY{k+kn}{import} \PY{n+nn}{mpl\PYZus{}toolkits}\PY{n+nn}{.}\PY{n+nn}{axes\PYZus{}grid1}\PY{n+nn}{.}\PY{n+nn}{inset\PYZus{}locator} \PY{k}{as} \PY{n+nn}{mpl\PYZus{}il}
+          \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{cm}
+          \PY{k+kn}{from} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{cm} \PY{k}{import} \PY{n}{ScalarMappable}
+          \PY{k+kn}{import} \PY{n+nn}{requests}
+          \PY{k+kn}{import} \PY{n+nn}{re}
+          \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{from} \PY{n+nn}{bs4} \PY{k}{import} \PY{n}{BeautifulSoup}
+          \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{8}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.family}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cursive}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{style}\PY{o}{.}\PY{n}{use}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{seaborn\PYZhy{}dark\PYZhy{}palette}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{page} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{http://www.thearda.com/rcms2010/r/m/11460/rcms2010\PYZus{}11460\PYZus{}metro\PYZus{}name\PYZus{}2010.asp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{soup} \PY{o}{=} \PY{n}{BeautifulSoup}\PY{p}{(}\PY{n}{page}\PY{o}{.}\PY{n}{content}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{html.parser}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{tr\PYZus{}tags} \PY{o}{=} \PY{n}{soup}\PY{o}{.}\PY{n}{find\PYZus{}all}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{full\PYZus{}ls} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{index} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{81}\PY{p}{)}\PY{p}{:}
+              \PY{n}{node} \PY{o}{=} \PY{n}{tr\PYZus{}tags}\PY{p}{[}\PY{n}{index}\PY{p}{]}
+              \PY{n}{td\PYZus{}child} \PY{o}{=} \PY{n}{node}\PY{o}{.}\PY{n}{find\PYZus{}all}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{td}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{ls} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{td\PYZus{}child}\PY{p}{:}
+                  \PY{k}{try}\PY{p}{:}
+                      \PY{n}{child} \PY{o}{=} \PY{n}{i}\PY{o}{.}\PY{n}{find\PYZus{}all}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                      \PY{n}{ls}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{child}\PY{o}{.}\PY{n}{get\PYZus{}text}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                  \PY{k}{except}\PY{p}{:}
+                      \PY{n}{ls}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{i}\PY{o}{.}\PY{n}{get\PYZus{}text}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+              \PY{n}{full\PYZus{}ls}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{ls}\PY{p}{)}
+              
+          \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{full\PYZus{}ls}\PY{p}{,}\PY{n}{columns} \PY{o}{=}  \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Religious Bodies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tradition}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Family}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Congregations}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Adherents}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Adherence Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Adherents}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Adherents}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{0}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Adherence Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Adherence Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{0}\PY{l+s+s1}{\PYZsq{}}
+          
+          \PY{k}{def} \PY{n+nf}{num\PYZus{}conv}\PY{p}{(}\PY{n}{row}\PY{p}{)}\PY{p}{:}
+              \PY{k}{return} \PY{n+nb}{int}\PY{p}{(}\PY{n}{row}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Adherents}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Adherents}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{num\PYZus{}conv}\PY{p}{)}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Adherence Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Adherence Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Congregations}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Congregations}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}147}]:}                                      Religious Bodies               Tradition  \textbackslash{}
+          0                  African Methodist Episcopal Church        Black Protestant   
+          1                American Baptist Churches in the USA     Mainline Protestant   
+          2   Antiochian Orthodox Christian Archdiocese of N{\ldots}                Orthodox   
+          3   Armenian Church of North America (Catholicosat{\ldots}                Orthodox   
+          4                                   Assemblies of God  Evangelical Protestant   
+          5                                              Bahá'í                   Other   
+          6                                  Buddhism, Mahayana                   Other   
+          7                                 Buddhism, Theravada                   Other   
+          8                                 Buddhism, Vajrayana                   Other   
+          9                  Calvary Chapel Fellowship Churches  Evangelical Protestant   
+          10                                    Catholic Church                Catholic   
+          11             Christian and Missionary Alliance, The  Evangelical Protestant   
+          12             Christian Church (Disciples of Christ)     Mainline Protestant   
+          13          Christian Churches and Churches of Christ  Evangelical Protestant   
+          14         Christian Reformed Church in North America  Evangelical Protestant   
+          15                        Church of Christ, Scientist                   Other   
+          16                  Church of God (Anderson, Indiana)  Evangelical Protestant   
+          17               Church of God (Cleveland, Tennessee)  Evangelical Protestant   
+          18                            Church of God in Christ        Black Protestant   
+          19                          Church of God of Prophecy  Evangelical Protestant   
+          20   Church of Jesus Christ of Latter-day Saints, The                   Other   
+          21  Church of Our Lord Jesus Christ of the Apostol{\ldots}        Black Protestant   
+          22                             Church of the Brethren  Evangelical Protestant   
+          23                             Church of the Nazarene  Evangelical Protestant   
+          24                                 Churches of Christ  Evangelical Protestant   
+          25                                Community of Christ                   Other   
+          26                               Conservative Judaism                   Other   
+          27      Converge Worldwide/Baptist General Conference  Evangelical Protestant   
+          28                             Coptic Orthodox Church                Orthodox   
+          29                                   Episcopal Church     Mainline Protestant   
+          ..                                                {\ldots}                     {\ldots}   
+          44       Lutheran Congregations in Mission for Christ  Evangelical Protestant   
+          45                               Mennonite Church USA  Evangelical Protestant   
+          46  Metropolitan Community Churches, Universal Fel{\ldots}     Mainline Protestant   
+          47                                    Muslim Estimate                   Other   
+          48  National Association of Congregational Christi{\ldots}     Mainline Protestant   
+          49         National Association of Free Will Baptists  Evangelical Protestant   
+          50             National Baptist Convention, USA, Inc.        Black Protestant   
+          51  New Apostolic Church of North America, Nationa{\ldots}                   Other   
+          52                                 Non-denominational  Evangelical Protestant   
+          53                          Pentecostal Church of God  Evangelical Protestant   
+          54                       Presbyterian Church (U.S.A.)     Mainline Protestant   
+          55                     Presbyterian Church in America  Evangelical Protestant   
+          56      Progressive National Baptist Convention, Inc.        Black Protestant   
+          57                          Reconstructionist Judaism                   Other   
+          58                                     Reform Judaism                   Other   
+          59                         Reformed Church in America     Mainline Protestant   
+          60          Russian Orthodox Church Outside of Russia                Orthodox   
+          61                                     Salvation Army  Evangelical Protestant   
+          62                       Seventh-day Adventist Church  Evangelical Protestant   
+          63                        Southern Baptist Convention  Evangelical Protestant   
+          64            Union of Messianic Jewish Congregations                   Other   
+          65  Unitarian Universalist Association of Congrega{\ldots}                   Other   
+          66                            United Church of Christ     Mainline Protestant   
+          67                       United Methodist Church, The     Mainline Protestant   
+          68            United Pentecostal Church International  Evangelical Protestant   
+          69                     Unity Churches, Association of                   Other   
+          70                                       Vineyard USA  Evangelical Protestant   
+          71                               Wesleyan Church, The  Evangelical Protestant   
+          72               Wisconsin Evangelical Lutheran Synod  Evangelical Protestant   
+          73                                        Zoroastrian                   Other   
+          
+                                     Family  Congregations  Adherents  Adherence Rate  
+          0               Methodist/Pietist              5       1399             4.1  
+          1                         Baptist              7       1770             5.1  
+          2   Eastern Liturgical (Orthodox)              1         63             0.2  
+          3   Eastern Liturgical (Orthodox)              1         30             0.1  
+          4                     Pentecostal             13       1375             4.0  
+          5                    Other Groups              3        358             1.0  
+          6                    Other Groups              4        300             0.9  
+          7                    Other Groups              3        295             0.9  
+          8                    Other Groups              2        180             0.5  
+          9                     Pentecostal              1          0             0.0  
+          10                    Catholicism             14      42603           123.6  
+          11                       Holiness              2        104             0.3  
+          12           Restoration Movement              1        104             0.3  
+          13           Restoration Movement              1         42             0.1  
+          14          Presbyterian-Reformed              4        930             2.7  
+          15              Christian Science              1          0             0.0  
+          16                       Holiness              2        510             1.5  
+          17                    Pentecostal              2       1233             3.6  
+          18                    Pentecostal             11       2356             6.8  
+          19                    Pentecostal              1         18             0.1  
+          20              Latter-day Saints              7       2929             8.5  
+          21                    Pentecostal              1          0             0.0  
+          22           European Free-Church              1         50             0.1  
+          23                       Holiness              4        192             0.6  
+          24           Restoration Movement              6        825             2.4  
+          25              Latter-day Saints              1        167             0.5  
+          26                        Judaism              1       1234             3.6  
+          27                        Baptist              1         90             0.3  
+          28  Eastern Liturgical (Orthodox)              1        125             0.4  
+          29    Episcopalianism/Anglicanism              8       2264             6.6  
+          ..                            {\ldots}            {\ldots}        {\ldots}             {\ldots}  
+          44                       Lutheran              1          0             0.0  
+          45           European Free-Church              2         62             0.2  
+          46                   Other Groups              1         18             0.1  
+          47                   Other Groups              3       4463            12.9  
+          48          Presbyterian-Reformed              1        896             2.6  
+          49                        Baptist              5        601             1.7  
+          50                        Baptist              5       1381             4.0  
+          51                   Other Groups              1          0             0.0  
+          52                           ----             19       5418            15.7  
+          53                    Pentecostal              3        326             0.9  
+          54          Presbyterian-Reformed              7       3606            10.5  
+          55          Presbyterian-Reformed              1         69             0.2  
+          56                        Baptist              1        238             0.7  
+          57                        Judaism              1        127             0.4  
+          58                        Judaism              1       1809             5.2  
+          59          Presbyterian-Reformed              1        241             0.7  
+          60  Eastern Liturgical (Orthodox)              1        300             0.9  
+          61                       Holiness              2        270             0.8  
+          62                      Adventist              5        748             2.2  
+          63                        Baptist             12       2699             7.8  
+          64                        Judaism              1          0             0.0  
+          65                        Liberal              2        849             2.5  
+          66          Presbyterian-Reformed             13       3702            10.7  
+          67              Methodist/Pietist             17       9039            26.2  
+          68                    Pentecostal              3          0             0.0  
+          69                   Other Groups              2          0             0.0  
+          70                    Pentecostal              1       1268             3.7  
+          71                       Holiness              2        908             2.6  
+          72                       Lutheran              6       1535             4.5  
+          73                   Other Groups              0         13             0.0  
+          
+          [74 rows x 6 columns]
+\end{Verbatim}
+            
+    \textbf{Data filtering for finding relation among Population and the
+Traditions followed by them}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}139}]:} \PY{n}{df1} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tradition}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+          \PY{n}{df1}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}139}]:}                         Congregations  Adherents  Adherence Rate
+          Tradition                                                       
+          Black Protestant                   23       5374            15.6
+          Catholic                           14      42603           123.6
+          Evangelical Protestant            122      25339            73.6
+          Mainline Protestant                66      25876            75.1
+          Orthodox                            5        918             2.8
+          Other                              43      13086            37.9
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}142}]:} \PY{n}{y\PYZus{}pos} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df1}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+          \PY{n}{bars} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{y\PYZus{}pos}\PY{p}{,}\PY{n}{df1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Adherents}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightslategrey}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{y\PYZus{}pos}\PY{p}{,}\PY{n}{df1}\PY{o}{.}\PY{n}{index} \PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{bottom}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Religious Traditions\PYZhy{}2010 for Ann Arbor,Michigian Population}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PY{n}{top}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{bottom}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{left}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{right}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelleft}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelbottom}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{on}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{k}{for} \PY{n}{spine} \PY{o+ow}{in} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{spines}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{n}{spine}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+          
+          \PY{k}{for} \PY{n}{bar} \PY{o+ow}{in} \PY{n}{bars}\PY{p}{:}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{bar}\PY{o}{.}\PY{n}{get\PYZus{}x}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{n}{bar}\PY{o}{.}\PY{n}{get\PYZus{}width}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{bar}\PY{o}{.}\PY{n}{get\PYZus{}height}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{bar}\PY{o}{.}\PY{n}{get\PYZus{}height}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{,} 
+                           \PY{n}{ha}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{)}
+              
+          \PY{n}{x} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{xaxis}
+          \PY{k}{for} \PY{n}{item} \PY{o+ow}{in} \PY{n}{x}\PY{o}{.}\PY{n}{get\PYZus{}ticklabels}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{n}{item}\PY{o}{.}\PY{n}{set\PYZus{}rotation}\PY{p}{(}\PY{l+m+mi}{45}\PY{p}{)}
+              
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+<IPython.core.display.Javascript object>
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+/home/kartikey/anaconda3/lib/python3.6/site-packages/matplotlib/cbook/deprecation.py:107: MatplotlibDeprecationWarning: Passing one of 'on', 'true', 'off', 'false' as a boolean is deprecated; use an actual boolean (True/False) instead.
+  warnings.warn(message, mplDeprecation, stacklevel=1)
+/home/kartikey/anaconda3/lib/python3.6/site-packages/matplotlib/cbook/deprecation.py:107: MatplotlibDeprecationWarning: Passing one of 'on', 'true', 'off', 'false' as a boolean is deprecated; use an actual boolean (True/False) instead.
+  warnings.warn(message, mplDeprecation, stacklevel=1)
+/home/kartikey/anaconda3/lib/python3.6/site-packages/matplotlib/cbook/deprecation.py:107: MatplotlibDeprecationWarning: Passing one of 'on', 'true', 'off', 'false' as a boolean is deprecated; use an actual boolean (True/False) instead.
+  warnings.warn(message, mplDeprecation, stacklevel=1)
+/home/kartikey/anaconda3/lib/python3.6/site-packages/matplotlib/cbook/deprecation.py:107: MatplotlibDeprecationWarning: Passing one of 'on', 'true', 'off', 'false' as a boolean is deprecated; use an actual boolean (True/False) instead.
+  warnings.warn(message, mplDeprecation, stacklevel=1)
+/home/kartikey/anaconda3/lib/python3.6/site-packages/matplotlib/cbook/deprecation.py:107: MatplotlibDeprecationWarning: Passing one of 'on', 'true', 'off', 'false' as a boolean is deprecated; use an actual boolean (True/False) instead.
+  warnings.warn(message, mplDeprecation, stacklevel=1)
+/home/kartikey/anaconda3/lib/python3.6/site-packages/matplotlib/cbook/deprecation.py:107: MatplotlibDeprecationWarning: Passing one of 'on', 'true', 'off', 'false' as a boolean is deprecated; use an actual boolean (True/False) instead.
+  warnings.warn(message, mplDeprecation, stacklevel=1)
+
+    \end{Verbatim}
+
+    \textbf{Data filtering done for plotting the values of Number of
+Adherents belonging to different Religious Families}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}143}]:} \PY{n}{df2} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Family}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+          \PY{n}{df2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}143}]:}                                Congregations  Adherents  Adherence Rate
+          Family                                                                 
+          ----                                      19       5418            15.7
+          Adventist                                 11        748             2.2
+          Baptist                                   33       6779            19.6
+          Catholicism                               14      42603           123.6
+          Christian Science                          1          0             0.0
+          Eastern Liturgical (Orthodox)              5        918             2.8
+          Episcopalianism/Anglicanism                8       2264             6.6
+          European Free-Church                       6        317             0.9
+          Holiness                                  17       2830             8.3
+          Ind. Fundamentalist                        2          0             0.0
+          Judaism                                    4       3170             9.2
+          Latter-day Saints                          8       3096             9.0
+          Liberal                                    2        849             2.5
+          Lutheran                                  24       9901            28.7
+          Methodist/Pietist                         23      10567            30.7
+          Other Groups                              23       5989            17.3
+          Pentecostal                               36       6576            19.1
+          Presbyterian-Reformed                     29      10200            29.6
+          Restoration Movement                       8        971             2.8
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}144}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Adherents}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{bottom}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PY{n}{top}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{bottom}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{left}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{right}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelleft}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{on}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelbottom}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{on}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}    
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Population}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Religious Family\PYZhy{}2010 for Ann Arbor Michigan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{k}{for} \PY{n}{spine} \PY{o+ow}{in} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{spines}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{n}{spine}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+           
+          \PY{n}{x} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{xaxis}
+          \PY{k}{for} \PY{n}{item} \PY{o+ow}{in} \PY{n}{x}\PY{o}{.}\PY{n}{get\PYZus{}ticklabels}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{n}{item}\PY{o}{.}\PY{n}{set\PYZus{}rotation}\PY{p}{(}\PY{l+m+mi}{45}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+<IPython.core.display.Javascript object>
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+/home/kartikey/anaconda3/lib/python3.6/site-packages/matplotlib/cbook/deprecation.py:107: MatplotlibDeprecationWarning: Passing one of 'on', 'true', 'off', 'false' as a boolean is deprecated; use an actual boolean (True/False) instead.
+  warnings.warn(message, mplDeprecation, stacklevel=1)
+/home/kartikey/anaconda3/lib/python3.6/site-packages/matplotlib/cbook/deprecation.py:107: MatplotlibDeprecationWarning: Passing one of 'on', 'true', 'off', 'false' as a boolean is deprecated; use an actual boolean (True/False) instead.
+  warnings.warn(message, mplDeprecation, stacklevel=1)
+/home/kartikey/anaconda3/lib/python3.6/site-packages/matplotlib/cbook/deprecation.py:107: MatplotlibDeprecationWarning: Passing one of 'on', 'true', 'off', 'false' as a boolean is deprecated; use an actual boolean (True/False) instead.
+  warnings.warn(message, mplDeprecation, stacklevel=1)
+/home/kartikey/anaconda3/lib/python3.6/site-packages/matplotlib/cbook/deprecation.py:107: MatplotlibDeprecationWarning: Passing one of 'on', 'true', 'off', 'false' as a boolean is deprecated; use an actual boolean (True/False) instead.
+  warnings.warn(message, mplDeprecation, stacklevel=1)
+/home/kartikey/anaconda3/lib/python3.6/site-packages/matplotlib/cbook/deprecation.py:107: MatplotlibDeprecationWarning: Passing one of 'on', 'true', 'off', 'false' as a boolean is deprecated; use an actual boolean (True/False) instead.
+  warnings.warn(message, mplDeprecation, stacklevel=1)
+/home/kartikey/anaconda3/lib/python3.6/site-packages/matplotlib/cbook/deprecation.py:107: MatplotlibDeprecationWarning: Passing one of 'on', 'true', 'off', 'false' as a boolean is deprecated; use an actual boolean (True/False) instead.
+  warnings.warn(message, mplDeprecation, stacklevel=1)
+
+    \end{Verbatim}
+
+    ** For finding the relational curve between Adherence and Adherence Rate
+in Ann Arbor,MI**
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}145}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Relation between Adherence Rate and Adherents for Ann Arbor Michigan (2010)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{swarmplot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Adherence Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Adherents}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{)}\PY{p}{;}
+          
+          \PY{k}{for} \PY{n}{spine} \PY{o+ow}{in} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{spines}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{n}{spine}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+<IPython.core.display.Javascript object>
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
