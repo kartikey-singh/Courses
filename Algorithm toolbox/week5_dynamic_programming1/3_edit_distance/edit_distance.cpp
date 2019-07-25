@@ -18,7 +18,7 @@ ll edit_distance(const string &str1, const string &str2) {
   			dp[i][j] = min1(dp[i-1][j] + 1,min1(dp[i-1][j-1],dp[i][j-1]+1));
   		}else{
   			// dp[i][j] = min1(dp[i-1][j] + 1,min1(dp[i-1][j-1]+1,dp[i][j-1]+1));
-        dp[i][j] = min1(dp[i-1][j] + 1,dp[i][j-1]+1);
+        dp[i][j] = min1(dp[i-1][j] + 1,min(dp[i][j-1]+1,dp[i-1][j-1]+1));
   		}
   	}
   }	

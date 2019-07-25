@@ -16,6 +16,7 @@ ll partition2(vector<ll> &a, ll l, ll r) {
 }
 
 // in 3 way partttion you do <x ==x >x partitions that is djikstra 3 way partitioning
+// best method esay to learn
 vector<ll> partition31(vector<ll> &a, ll l, ll r) {
   vector<ll> v;
   v.push_back(0);

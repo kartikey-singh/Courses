@@ -55,5 +55,6 @@ ll int fun(ll int n){
 int main(void) {
     ll int n = 0;
     cin >> n;
+    // as i need to calculate last digit so pissano period of 10 is 60 and sum of fibonacci numbers is s(n) = f(n+2) -1
     cout << fun(n%60)<<endl;
 }
